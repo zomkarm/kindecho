@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Services\SentimentManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -42,24 +45,36 @@ class PostController extends Controller
     /**
      * Store a newly submitted kind/positive post.
      */
-    public function store(Request $request)
+    public function store(Request $request, SentimentManager $sentiment)
     {
-        $request->validate([
-            'content' => 'required|min:10|max:500',
-            'mood'    => 'required|string|max:50',
-            'tag'     => 'nullable|string|max:50',
+        $validated = $request->validate([
+            'content' => 'required|string|max:500',
+            'mood' => 'required|string|max:50',
+            'tag' => 'nullable|string|max:50',
         ]);
 
-        Post::create([
-            'user_id'  => Auth::id(),
-            'content'  => $request->input('content'),
-            'mood'     => $request->input('mood'),
-            'tag'      => $request->input('tag'),
-            'status'   => 'approved', // If using moderation, change to 'pending'
-            'sentiment'=> null, // Optional: can be auto-populated by analysis later
+        $status = 'approved';
+
+        try {
+
+            $result = $sentiment->analyze($validated['content']);
+
+            if ($result === 'negative') {
+                $status = 'pending';
+            }
+        } catch (\Exception $e) {
+            Log::error('Sentiment Analysis failed:', ['error' => $e->getMessage()]);
+            $status = 'pending';
+        }
+
+        $post = auth()->user()->posts()->create([
+            'content' => $validated['content'],
+            'mood' => $validated['mood'],
+            'tag' => $validated['tag'],
+            'status' => $status,
         ]);
 
-        return redirect()->route('posts.mine')->with('success', 'Your kind thought was posted!');
+        return back()->with('success', 'Post submitted successfully!');
     }
 
     /**
@@ -76,20 +91,10 @@ class PostController extends Controller
         return view('post.wall');
     }
 
-    /*public function load(Request $request)
-    {
-        $offset = $request->input('offset', 0);
-        $limit = 12;
-
-        $posts = \App\Models\Post::latest()->skip($offset)->take($limit)->get();
-
-        return response()->json($posts);
-    }*/
-
     public function loadMorePosts(Request $request)
     {
         $offset = (int) $request->query('offset', 0);
-        $posts = Post::latest()->skip($offset)->take(12)->get();
+        $posts = Post::where('status', 'approved')->latest()->skip($offset)->take(12)->get();
 
         if ($posts->isEmpty()) {
             return response()->json(['html' => '', 'done' => true]);
