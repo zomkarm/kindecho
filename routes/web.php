@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LikeController;
@@ -9,6 +10,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +86,31 @@ Route::middleware('auth')->group(function () {
 Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->middleware('auth');
 
 Route::get('/dashboard', [PostController::class, 'mine'])->name('posts.mine')->middleware('auth');
+
+Route::prefix('admin')->group(function () {
+    Route::get('register', [AuthController::class, 'showRegister'])->name('admin.register');
+    Route::post('register', [AuthController::class, 'register']);
+    
+    Route::get('login', [AuthController::class, 'showLogin'])->name('admin.login');
+    Route::post('login', [AuthController::class, 'login']);
+
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    });
+
+    Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
+    Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+
+    // Posts Management
+    Route::get('/posts', [AdminPostController::class, 'index'])->name('admin.posts.index');
+    Route::get('/posts/{post}/edit', [AdminPostController::class, 'edit'])->name('admin.posts.edit');
+    Route::put('/posts/{post}', [AdminPostController::class, 'update'])->name('admin.posts.update');
+    Route::delete('/posts/{post}', [AdminPostController::class, 'destroy'])->name('admin.posts.destroy');
+
+    Route::get('/admin/settings', [AdminSettingController::class, 'edit'])->name('admin.settings.edit');
+    Route::post('/admin/settings', [AdminSettingController::class, 'update'])->name('admin.settings.update');
+});
 
 Route::get('/test',function(){
     return view('test');
