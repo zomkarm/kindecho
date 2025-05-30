@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminSettingController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +111,11 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/admin/settings', [AdminSettingController::class, 'edit'])->name('admin.settings.edit');
     Route::post('/admin/settings', [AdminSettingController::class, 'update'])->name('admin.settings.update');
+});
+
+Route::get('/run-seeder-87451xytd', function () {
+    Artisan::call('db:seed', ['--class' => 'AdminPostsSeeder', '--force' => true]);
+    return 'Seeder executed successfully.';
 });
 
 Route::get('/test',function(){
