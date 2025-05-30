@@ -11,4 +11,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        https: true, // for dev (optional)
+    },
+    build: {
+        manifest: true,
+        outDir: 'public/build',
+    },
+    base: '', // keep blank for Laravel root
 });
