@@ -2,7 +2,7 @@
 
 @section('wall')
 <div class="pt-6 pb-20 max-w-6xl mx-auto"
-     style="background-color: #F9FAFB; min-height: 80vh;"
+     style="min-height: 80vh;font-family:'Crafty Girls', cursive;"
      x-data="postLoader()" x-init="loadMore()" x-on:scroll.window="handleScroll">
 
      <div id="post-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -20,7 +20,6 @@
         No more posts found.
     </div>
 </div>
-
 <script>
     function postLoader() {
         return {
@@ -43,6 +42,7 @@
                         this.done = true;
                     } else {
                         document.getElementById('post-grid').insertAdjacentHTML('beforeend', data.html);
+                        lucide.createIcons();
                         this.offset += 12;
                     }
                 } catch (e) {

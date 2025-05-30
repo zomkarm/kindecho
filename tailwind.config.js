@@ -14,7 +14,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
-            
+            colors:{
+                bgcol: '#4E2858',
+            }
         },
     },
 

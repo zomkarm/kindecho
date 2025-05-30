@@ -4,11 +4,16 @@
     <meta charset="UTF-8" />
     <title>KindEcho</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    @vite(['resources/css/app.css', 'resources/js/app.js']) <!-- Laravel Vite -->
+    @vite(['resources/css/app.css', 'resources/js/app.js']) <!-- Adjust if needed -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Crafty+Girls&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body
-    class="bg-gray-100 text-gray-800"
+    class="bg-gray-100 text-gray-800 bg-bgcol"
     x-data="{ currentView: '{{ Route::currentRouteName() }}' }"
       x-init="
         if (!currentView || currentView === '') {
@@ -16,7 +21,7 @@
         }
         console.log('Current view is', currentView);
       ">
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen bg-bgcol">
         <!-- Sidebar -->
         @include('components.sidebar')
 
@@ -26,7 +31,7 @@
                 id="content"
                 x-show="currentView === 'posts.wall'"
                 x-cloak
-                class="p-4"
+                class="p-4 "
             >
                 @yield('wall')
             </div>
@@ -104,7 +109,12 @@
             </div>
         </main>
     </div>
+<!-- Production version -->
+<script src="https://unpkg.com/lucide@latest"></script>
 
-    {{-- Alpine.js script loaded above --}}
+<script>
+    lucide.createIcons();
+</script>
+
 </body>
 </html>
