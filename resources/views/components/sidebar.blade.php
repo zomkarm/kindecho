@@ -11,7 +11,8 @@ $navItems = auth()->check() ? [
 ];
 @endphp
 
-<div class="bg-bgcol fixed bottom-0 w-full md:top-0 md:left-0  md:w-16 bg-white border-t md:border-r border-gray-200 rounded-md md:mt-4 md:mb-4 md:ml-2 flex md:flex-col justify-around md:justify-start md:py-6 z-50">
+<div class="bg-bgcol fixed bottom-0 w-full md:top-0 md:left-0  md:w-16 bg-white border-t md:border-r border-gray-200 rounded-md md:mt-4 md:mb-4 md:ml-2 flex md:flex-col justify-around md:justify-start md:py-6 z-50" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+">
     @foreach ($navItems as $item)
         @php
             $isActive = Route::currentRouteName() === $item['route'];
