@@ -1,6 +1,6 @@
 # 🌟 KindEcho – Anonymous Gratitude Wall
 
-KindEcho is a Laravel 10-based web app that allows users to anonymously post positive messages, fostering a community of kindness. It features modern UI, admin moderation, sentiment tagging, and responsive design.
+KindEcho is a Laravel based web app that allows users to anonymously post positive messages, fostering a community of kindness. It features modern UI, admin moderation, sentiment tagging, and responsive design.
 
 ## ✨ Features
 
@@ -68,6 +68,6 @@ User::create([
 
 6. Start the Server
 php artisan serve
-Visit: http://localhost:8000
+Visit: http://localhost:8000 //check which port server is running on
 
 Built with ❤️ to spread positivity – KindEcho
