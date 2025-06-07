@@ -5,7 +5,7 @@
      style="min-height: 80vh;font-family:'Crafty Girls', cursive;"
      x-data="postLoader()" x-init="loadMore()" x-on:scroll.window="handleScroll">
 
-     <div id="post-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6">
+     <div id="post-grid" class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 gap-6">
 
         {{-- Initial posts will be here if needed --}}
     </div>
