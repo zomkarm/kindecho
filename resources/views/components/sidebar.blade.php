@@ -11,7 +11,7 @@ $navItems = auth()->check() ? [
 ];
 @endphp
 
-<div class="fixed bottom-0 w-full md:top-0 md:left-0  md:w-16 bg-white border-t md:border-r border-gray-200 flex md:flex-col justify-around md:justify-start md:py-6 z-50 bg-[#A020F0] text-white"
+<div class="fixed bottom-0 w-full md:top-0 md:left-0  md:w-16 bg-white border-t md:border-r border-gray-200 flex md:flex-col justify-around md:justify-start md:py-6 z-50 text-white" style="background:#A020F0"
 ">
     @foreach ($navItems as $item)
         @php
