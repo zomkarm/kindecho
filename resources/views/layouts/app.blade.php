@@ -21,7 +21,7 @@
         }
         console.log('Current view is', currentView);
       ">
-    <div class="flex min-h-screen bg-bgcol">
+    <div class="flex min-h-screen bg-white" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
         <!-- Sidebar -->
         @include('components.sidebar')
 
@@ -31,7 +31,7 @@
                 id="content"
                 x-show="currentView === 'posts.wall'"
                 x-cloak
-                class="p-4 "
+                class="p-4"
             >
                 @yield('wall')
             </div>

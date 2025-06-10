@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('wall')
-<div class="pt-6 pb-20 max-w-6xl mx-auto"
+<div class="pt-6 pb-20 max-w-6xl mx-auto "
      style="min-height: 80vh;font-family:'Crafty Girls', cursive;"
      x-data="postLoader()" x-init="loadMore()" x-on:scroll.window="handleScroll">
 

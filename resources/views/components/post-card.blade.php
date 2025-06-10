@@ -1,9 +1,8 @@
-<div class="flex h-full transition-transform duration-300 ease-in-out hover:scale-105">
-    <div class="flex flex-col justify-between h-full w-full bg-white/20 backdrop-blur-md rounded-bl-2xl rounded-tr-2xl shadow-md  p-5 hover:shadow-xl border-2 border-transparent hover:border-bgcol transition-all duration-300 group relative overflow-hidden">
+<div class="flex h-full bg-white rounded-3xl">
+    <div class="flex flex-col justify-between h-full w-full backdrop-blur-md rounded-3xl shadow-md  p-5 hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
 
         {{-- Decorative gradient glow (illusion effect) --}}
-        <div class="absolute -inset-0.5 bg-gradient-to-tr from-pink-100 to-indigo-100 opacity-0 group-hover:opacity-50 opacity-50 active:opacity-50  transition duration-500 rounded-2xl blur-2xl z-0"></div>
-
+        
         <div class="relative z-10">
             <div class="text-xs mb-3 text-gray-500 space-x-2">
                 <span class="px-2 py-1 bg-green-100 text-green-600 rounded-full text-xs font-semibold">
@@ -17,7 +16,7 @@
                 @endif
             </div>
 
-            <div class="text-lg font-serif text-[#302B63] font-bold leading-relaxed line-clamp-5 italic">
+            <div class="text-lg font-serif text-[#302B63]  leading-relaxed line-clamp-5 italic">
                 “{{ $post->content }}”
             </div>
         </div>
